@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="cl.kimelti.werken.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_retiro"
+        android:name="cl.kimelti.werken.data.RetiroListFragment"
+        android:label="@string/menu_retiro"
+        tools:layout="@layout/fragment_entrega_list" >
+        <action
+            android:id="@+id/show_retiro_detail"
+            app:destination="@id/retiro_detail_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/retiro_detail_fragment"
+        android:name="cl.kimelti.werken.data.RetiroDetailFragment"
+        android:label="retiro_detail"
+        tools:layout="@layout/fragment_retiro_detail">
+        <argument
+            android:name="item_id"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_entrega"
+        android:name="cl.kimelti.werken.data.EntregaListFragment"
+        android:label="@string/menu_entrega"
+        tools:layout="@layout/fragment_entrega_list">
+        <action
+            android:id="@+id/show_entrega_detail"
+            app:destination="@id/entrega_detail_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/entrega_detail_fragment"
+        android:name="cl.kimelti.werken.data.EntregaDetailFragment"
+        android:label="entrega_detail"
+        tools:layout="@layout/fragment_entrega_detail">
+        <argument
+            android:name="item_id"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+</navigation>

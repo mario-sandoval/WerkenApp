@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Werken</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Login</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Iniciar Sesión</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="welcome">"Bienvenido !"</string>
+    <string name="invalid_username">no es un nombre de usuario válido</string>
+    <string name="invalid_password">La contraseña debe tener más de 5 caracteres</string>
+    <string name="login_failed">"error de inicio de sesion"</string>
+    <string name="title_activity_entrega_detail_host">EntregaDetailHostActivity</string>
+    <string name="title_entrega_list">Entregas</string>
+    <string name="title_entrega_detail">Entrega Detail</string>
+    <string name="title_activity_retiro_detail_host">RetiroDetailHostActivity</string>
+    <string name="title_retiro_list">Retiros</string>
+    <string name="title_retiro_detail">Retiro Detail</string>
+    <!--Preferencias -->
+    <string name="preference_auth">AUTH_TEXT</string>
+    <string name="preference_messenger">MESSENGER</string>
+    <!-- Config -->
+    <string name="url_base">http://192.168.0.9:8080</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_entrega">Entregas</string>
+    <string name="menu_retiro">Retiros</string>
+
+    <string name="action_logout">Cerrar Sesión</string>
+
+    <string name="search_hint">Buscar..</string>
+    <string name="app_label">Werken</string>
+</resources>
