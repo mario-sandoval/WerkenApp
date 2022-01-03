@@ -50,7 +50,6 @@ import java.util.List;
 public class EntregaListFragment extends Fragment {
 
     private List<EnvioVo> envioVoList;
-    private SimpleItemRecyclerViewAdapter adapter;
 
     /**
      * Method to intercept global key events in the
@@ -85,9 +84,9 @@ public class EntregaListFragment extends Fragment {
         //envioVoList = new ArrayList<>();
         EnviosTask enviosTaskTask = new EnviosTask();
         try {
-            synchronized(enviosTaskTask){
+            //synchronized(enviosTaskTask){
                 enviosTaskTask.execute((Void) null).get();
-            }
+            //}
         } catch (Exception e) {
             Log.d("Error al obtener retiro", e.getMessage());
         }
@@ -139,10 +138,7 @@ public class EntregaListFragment extends Fragment {
             ).show();
             return true;
         };
-
-        //setHasOptionsMenu(true);
-        //adapter = new SimpleItemRecyclerViewAdapter(envioVoList,onClickListener, onContextClickListener);
-        recyclerView.setAdapter(adapter);
+        
         setupRecyclerView(recyclerView, onClickListener, onContextClickListener);
     }
 
@@ -166,75 +162,7 @@ public class EntregaListFragment extends Fragment {
         binding = null;
     }
 
-    /*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        inflater.inflate(R.menu.main, menu);
-        SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        searchView.setOnQueryTextListener(queryListener);
-        //MenuInflater menuInflater = getActivity().getMenuInflater();//.inflate(R.menu.main, menu);
-        //menuInflater.inflate(R.menu.main, menu);
-
-        //getting the search view from the menu
-        MenuItem searchViewItem = menu.findItem(R.id.action_search);
-
-        //getting search manager from systemservice
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-
-        //getting the search view
-        final SearchView searchView = (SearchView) searchViewItem.getActionView();
-
-        //you can put a hint for the search input field
-        //searchView.setQueryHint(getString(R.string.search_hint));
-
-        //assert searchManager != null;
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-        //by setting it true we are making it iconified
-        //so the search input will show up after taping the search iconified
-        //if you want to make it visible all the time make it false
-        searchView.setIconifiedByDefault(true);
-
-        //here we will get the search query
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                Log.d("Search",query);
-                List<EnvioVo> cajaList;
-                adapter.getmValues().clear();
-                if(query != null){
-                    cajaList = EnvioService.getInstance().getEnviosByText(query);
-                    adapter.getmValues().addAll(cajaList);
-                }else{
-                    adapter.getmValues().addAll(envioVoList);
-                }
-                adapter.notifyDataSetChanged();
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                List<EnvioVo> list;
-                adapter.getmValues().clear();
-                if(newText != null){
-                    list = EnvioService.getInstance().getEnviosByText(newText);
-                    adapter.getmValues().addAll(list);
-                }else{
-                    adapter.getmValues().addAll(envioVoList);
-                }
-                adapter.notifyDataSetChanged();
-                return false;
-            }
-        });
-
-        //return true;
-    }
-    */
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
@@ -315,15 +243,6 @@ public class EntregaListFragment extends Fragment {
 
         }
 
-        public void updateData(List<EnvioVo> viewModels) {
-            mValues.clear();
-            mValues.addAll(viewModels);
-            notifyDataSetChanged();
-        }
-
-        public List<EnvioVo> getmValues(){
-            return mValues;
-        }
     }
 
     private class EnviosTask extends AsyncTask<Void,Void, Boolean> {
@@ -334,36 +253,6 @@ public class EntregaListFragment extends Fragment {
             return envioVoList != null;
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if (success) {
-                //adapter.updateData(envioVoList);
-            }
-        }
     }
 
-    /*
-    final private androidx.appcompat.widget.SearchView.OnQueryTextListener queryListener = new OnQueryTextListener() {
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            if (TextUtils.isEmpty(newText)) {
-                getActivity().getActionBar().setSubtitle("List");
-                grid_currentQuery = null;
-            } else {
-                getActivity().getActionBar().setSubtitle("List - Searching for: " + newText);
-                grid_currentQuery = newText;
-
-            }
-            getLoaderManager().restartLoader(0, null, EntregaListFragment.this);
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            Toast.makeText(getActivity(), "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    };
-    */
 }

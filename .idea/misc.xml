@@ -11,13 +11,21 @@
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/drawable/side_nav_bar.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-sw600dp/fragment_entrega_detail.xml" value="0.15061475409836064" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-sw600dp/fragment_retiro_detail.xml" value="0.11816939890710383" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.13046875" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-w1240dp/activity_scanner.xml" value="0.1" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-w1240dp/dialog_entrega2.xml" value="0.1" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-w1240dp/dialog_retiro.xml" value="0.13046875" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout-w936dp/activity_login.xml" value="0.11407103825136612" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_entrega_detail.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_login.xml" value="0.12395833333333334" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_main.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_retiro_detail.xml" value="0.1" />
-        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_startup.xml" value="0.1" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_scanner.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/activity_startup.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/app_bar_main.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/content_main.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/dialog_entrega.xml" value="0.1" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/dialog_retiro.xml" value="0.151268115942029" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/entrega_list_content.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/fragment_entrega_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/fragment_entrega_list.xml" value="0.10729166666666666" />
@@ -26,7 +34,7 @@
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/fragment_retiro_detail.xml" value="0.1109375" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/fragment_retiro_list.xml" value="0.1109375" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/fragment_slideshow.xml" value="0.19972826086956522" />
-        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/nav_header_main.xml" value="0.1109375" />
+        <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/nav_header_main.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/layout/retiro_list_content.xml" value="0.1109375" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/menu/activity_main_drawer.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/mario/AndroidStudioProjects/Werken/app/src/main/res/menu/main.xml" value="0.22552083333333334" />

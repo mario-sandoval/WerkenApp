@@ -8,6 +8,8 @@ import static cl.kimelti.werken.data.database.DbConstants.NOMBRE;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -17,12 +19,7 @@ import java.util.List;
 
 import cl.kimelti.werken.data.model.EstadoVo;
 
-public class EstadoDbHelper extends DbHelper<EstadoVo>{
-
-    private final String SQL_CREATE = MessageFormat.format("CREATE TABLE {0} ({1} INTEGER PRIMARY KEY, {2} TEXT, {3} TEXT, {4} INTEGER)",TABLE_NAME, _ID, NOMBRE, DESCRIPCION, CODIGO);
-    private final String SQL_DELETE = MessageFormat.format("DROP TABLE IF EXISTS {0}",TABLE_NAME);
-    private final String SORT_ORDER = MessageFormat.format("{0} ASC",CODIGO);
-    private static final String TABLE_NAME = "estado";
+public class EstadoDao extends Dao<EstadoVo> {
 
     private final String[] projection = {
             _ID,
@@ -31,23 +28,13 @@ public class EstadoDbHelper extends DbHelper<EstadoVo>{
             CODIGO
     };
 
-    public EstadoDbHelper(@Nullable Context context) {
-        super(context);
-    }
-
-    @Override
-    public String getSqlCreate() {
-        return SQL_CREATE;
-    }
-
-    @Override
-    public String getSqlDelete() {
-        return SQL_DELETE;
+    public EstadoDao(SQLiteDatabase sqlDb) {
+        super(sqlDb);
     }
 
     @Override
     public String getTableName() {
-        return TABLE_NAME;
+        return EstadoEntry.TABLE_NAME;
     }
 
     @Override
@@ -57,7 +44,7 @@ public class EstadoDbHelper extends DbHelper<EstadoVo>{
 
     @Override
     public String getOrder() {
-        return SORT_ORDER;
+        return EstadoEntry.SORT_ORDER;
     }
 
     @Override
@@ -66,7 +53,7 @@ public class EstadoDbHelper extends DbHelper<EstadoVo>{
         String selection = NOMBRE + " LIKE ? ";
         String[] selectionArgs = { "%"+query+"%"};
 
-        Cursor cursor = sqlDb.query(TABLE_NAME, projection, selection, selectionArgs, null, null, SORT_ORDER);
+        Cursor cursor = sqlDb.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getOrder());
         ArrayList<EstadoVo> outList = new ArrayList<>();
         if (cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -102,4 +89,5 @@ public class EstadoDbHelper extends DbHelper<EstadoVo>{
         values.put(CODIGO, vo.getCodigo());
         return values;
     }
+
 }

@@ -11,17 +11,21 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import cl.kimelti.werken.R;
 import cl.kimelti.werken.data.model.EnvioVo;
 import cl.kimelti.werken.databinding.FragmentEntregaDetailBinding;
 import cl.kimelti.werken.service.EnvioService;
+import cl.kimelti.werken.service.EstadoService;
 
 /**
  * A fragment representing a single Entrega detail screen.
@@ -92,6 +96,15 @@ public class EntregaDetailFragment extends Fragment {
         mToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
         mTextView = binding.entregaDetail;
 
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new EntregaDialogFragment(mItem);
+                newFragment.show(getParentFragmentManager(), "envioEntregado");
+            }
+
+        });
+
         // Show the placeholder content as text in a TextView & in the toolbar if available.
         updateContent();
         rootView.setOnDragListener(dragListener);
@@ -126,4 +139,5 @@ public class EntregaDetailFragment extends Fragment {
             return true;
         }
     }
+
 }

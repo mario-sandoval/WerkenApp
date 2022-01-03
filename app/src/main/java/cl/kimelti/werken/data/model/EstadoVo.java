@@ -36,4 +36,9 @@ public class EstadoVo extends AbstractVo {
         this.codigo = codigo;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

@@ -1,16 +1,19 @@
 package cl.kimelti.werken;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,12 +21,20 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
+import cl.kimelti.werken.data.EntregaDetailFragment;
+import cl.kimelti.werken.data.EntregaDialogFragment;
 import cl.kimelti.werken.data.RetiroDetailHostActivity;
+import cl.kimelti.werken.data.database.DBOpenHelper;
+import cl.kimelti.werken.data.model.EnvioVo;
 import cl.kimelti.werken.databinding.ActivityMainBinding;
+import cl.kimelti.werken.service.EnvioService;
 import cl.kimelti.werken.service.PreferenceService;
 import cl.kimelti.werken.ui.login.LoginActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EntregaDialogFragment.EntregaDialogListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -57,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //DBOpenHelper.getInstance().getReadableDatabase().close();
+        //DBOpenHelper.getInstance().close();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -83,9 +101,52 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        EntregaDialogFragment entregaDialogFragment = (cl.kimelti.werken.data.EntregaDialogFragment) dialog;
+        EnvioVo envio = entregaDialogFragment.getmItem();
+
+        MensajeroTask mensajeroTask = new MensajeroTask(envio);
+
+        try {
+            //synchronized(mensajeroTask) {
+                mensajeroTask.execute((Void) null).get();
+            //}
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(getApplicationContext(), "Envío Actualizado", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        //Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+    }
+
     private void logout(){
         PreferenceService.getInstance().removeLoginPreferences();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    private class MensajeroTask extends AsyncTask<Void,Void, Boolean> {
+
+        private EnvioVo mItem;
+
+        public MensajeroTask(EnvioVo mItem){
+            this.mItem = mItem;
+        }
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            try {
+                EnvioService.getInstance().updateEnvio(mItem);
+            } catch (IOException e) {
+                return Boolean.FALSE;
+            }
+            return Boolean.TRUE;
+        }
     }
 }

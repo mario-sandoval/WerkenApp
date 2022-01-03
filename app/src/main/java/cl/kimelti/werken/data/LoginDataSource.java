@@ -1,11 +1,14 @@
 package cl.kimelti.werken.data;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 
+import cl.kimelti.werken.MainActivity;
 import cl.kimelti.werken.data.model.LoggedInUser;
 import cl.kimelti.werken.data.model.MensajeroVo;
 import cl.kimelti.werken.service.MensajeroService;
 import cl.kimelti.werken.service.PreferenceService;
+import cl.kimelti.werken.ui.login.LoginActivity;
 import cl.kimelti.werken.util.StringUtil;
 
 import java.io.IOException;
@@ -35,7 +38,7 @@ public class LoginDataSource {
     }
 
     public void logout() {
-        // TODO: revoke authentication
+        PreferenceService.getInstance().removeLoginPreferences();
     }
 
     private class LoginTask extends AsyncTask<Void, Void, Boolean>{

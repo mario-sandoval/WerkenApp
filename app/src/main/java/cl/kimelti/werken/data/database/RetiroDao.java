@@ -14,6 +14,7 @@ import static cl.kimelti.werken.data.database.DbConstants.OBSERVACION;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -27,13 +28,7 @@ import cl.kimelti.werken.data.model.EmpresaVo;
 import cl.kimelti.werken.data.model.MensajeroVo;
 import cl.kimelti.werken.data.model.RetiroVo;
 
-public class RetiroDbHelper extends DbHelper<RetiroVo>{
-
-    private final String SQL_CREATE = MessageFormat.format("CREATE TABLE {0} ( {1} INTEGER PRIMARY KEY, {2} INTEGER, {3} DATE, {4} TEXT, {5} TEXT, {6} TEXT, {7} TEXT, {8} TEXT, {9} INTEGER)",
-            TABLE_NAME, _ID, EMPRESA, FECHA, DIRECCION, COMUNA, CONTACTO, FONO, OBSERVACION, MENSAJERO);
-    private final String SQL_DELETE = MessageFormat.format("DROP TABLE IF EXISTS {0}",TABLE_NAME);
-    private final String SORT_ORDER = MessageFormat.format("{0} ASC",CODIGO);
-    private static final String TABLE_NAME = "estado";
+public class RetiroDao extends Dao<RetiroVo> {
 
     private final String[] projection = {
             _ID,
@@ -47,23 +42,13 @@ public class RetiroDbHelper extends DbHelper<RetiroVo>{
             MENSAJERO
     };
 
-    public RetiroDbHelper(@Nullable Context context) {
-        super(context);
-    }
-
-    @Override
-    public String getSqlCreate() {
-        return SQL_CREATE;
-    }
-
-    @Override
-    public String getSqlDelete() {
-        return SQL_DELETE;
+    public RetiroDao(SQLiteDatabase sqlDb) {
+        super(sqlDb);
     }
 
     @Override
     public String getTableName() {
-        return TABLE_NAME;
+        return RetiroEntry.TABLE_NAME;
     }
 
     @Override
@@ -73,7 +58,7 @@ public class RetiroDbHelper extends DbHelper<RetiroVo>{
 
     @Override
     public String getOrder() {
-        return SORT_ORDER;
+        return RetiroEntry.SORT_ORDER;
     }
     @Override
     public List<RetiroVo> getFilterRecords(String query) {
@@ -81,7 +66,7 @@ public class RetiroDbHelper extends DbHelper<RetiroVo>{
         String selection = CONTACTO + " LIKE ? OR " + DIRECCION + " LIKE ? " ;
         String[] selectionArgs = { "%"+query+"%"};
 
-        Cursor cursor = sqlDb.query(TABLE_NAME, projection, selection, selectionArgs, null, null, SORT_ORDER);
+        Cursor cursor = sqlDb.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getOrder());
         ArrayList<RetiroVo> outList = new ArrayList<>();
         if (cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -144,4 +129,5 @@ public class RetiroDbHelper extends DbHelper<RetiroVo>{
 
         return values;
     }
+
 }

@@ -26,11 +26,11 @@ import static cl.kimelti.werken.data.database.DbConstants.TIPO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +41,8 @@ import cl.kimelti.werken.data.model.EstadoVo;
 import cl.kimelti.werken.data.model.MensajeroVo;
 import cl.kimelti.werken.data.model.OrdenVo;
 
-public class EnvioDbHelper extends DbHelper<EnvioVo>{
+public class EnvioDao extends Dao<EnvioVo> {
 
-    private final String SQL_CREATE = MessageFormat.format("CREATE TABLE {0} ( {1} INTEGER PRIMARY KEY, {2} INTEGER, {3} INTEGER, {4} TEXT, {5} TEXT), {6} TEXT, {7} TEXT, {8} TEXT, {9} DATE, {10} DATE, {11} TEXT, {12} INTEGER, {13} INTEGER, {14} TEXT, {15} TEXT, {16} TEXT, {17} INTEGER, {18} TEXT, {19} TEXT, {20} INTEGER, {21} INTEGER)",
-            TABLE_NAME, _ID, FOLIO, ORDEN_TRABAJO, NUMERO_TRACKING, NOMBRE_DESTINATARIO, DIRECCION, COMUNA, FONO, FECHA_CREACION, FECHA_ENTREGA, COMENTARIO, ESTADO, EMPRESA, EMAIL_DESTINATARIO, CODIGO, TIPO, CANTIDAD_BULTOS, RECIBIDO_POR, PARENTESCO, RECIBE_TITULAR, MENSAJERO);
-    private final String SQL_DELETE = MessageFormat.format("DROP TABLE IF EXISTS {0}",TABLE_NAME);
-    private final String SORT_ORDER = MessageFormat.format("{0} ASC",NOMBRE_DESTINATARIO);
-    private static final String TABLE_NAME = "envio";
 
     private final String[] projection = {
             _ID,
@@ -73,23 +68,13 @@ public class EnvioDbHelper extends DbHelper<EnvioVo>{
             MENSAJERO
     };
 
-    public EnvioDbHelper(@Nullable Context context) {
-        super(context);
-    }
-
-    @Override
-    public String getSqlCreate() {
-        return SQL_CREATE;
-    }
-
-    @Override
-    public String getSqlDelete() {
-        return SQL_DELETE;
+    public EnvioDao(SQLiteDatabase sqlDb) {
+        super(sqlDb);
     }
 
     @Override
     public String getTableName() {
-        return TABLE_NAME;
+        return EnvioEntry.TABLE_NAME;
     }
 
     @Override
@@ -99,7 +84,7 @@ public class EnvioDbHelper extends DbHelper<EnvioVo>{
 
     @Override
     public String getOrder() {
-        return SORT_ORDER;
+        return EnvioEntry.SORT_ORDER;
     }
 
     @Override
@@ -109,7 +94,7 @@ public class EnvioDbHelper extends DbHelper<EnvioVo>{
         String selection = NOMBRE + " LIKE ? ";
         String[] selectionArgs = { "%"+query+"%"};
 
-        Cursor cursor = sqlDb.query(TABLE_NAME, projection, selection, selectionArgs, null, null, SORT_ORDER);
+        Cursor cursor = sqlDb.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getOrder());
         ArrayList<EnvioVo> outList = new ArrayList<>();
         if (cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {

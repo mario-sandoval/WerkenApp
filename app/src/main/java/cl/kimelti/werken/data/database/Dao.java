@@ -23,21 +23,22 @@ import java.util.Locale;
 import cl.kimelti.werken.data.model.AbstractVo;
 import cl.kimelti.werken.data.model.EstadoVo;
 
-public abstract class DbHelper<T extends AbstractVo> extends SQLiteOpenHelper {
+public abstract class Dao<T extends AbstractVo> {
 
     protected SQLiteDatabase sqlDb;
     protected DateFormat dateFormat;
 
-    public DbHelper(@Nullable Context context){
-        super(context,DATABASE_NAME,null,DATABASE_VERSION);
-        sqlDb = getWritableDatabase();
+
+    public Dao(SQLiteDatabase sqlDb){
+        this.sqlDb = sqlDb;
         this.dateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.getDefault());
     }
 
+    /*
     @Override
     public void onCreate(SQLiteDatabase db){
         Log.d("SQL Create:", getSqlCreate());
-       db.execSQL(getSqlCreate());
+        db.execSQL(getSqlCreate());
     }
 
     @Override
@@ -47,15 +48,10 @@ public abstract class DbHelper<T extends AbstractVo> extends SQLiteOpenHelper {
         db.execSQL(getSqlDelete());
         onCreate(db);
     }
-
+    */
     public void closeHelper(){
         this.sqlDb.close();
-        this.close();
     }
-
-    public abstract String getSqlCreate();
-
-    public abstract String getSqlDelete();
 
     public abstract String getTableName();
 

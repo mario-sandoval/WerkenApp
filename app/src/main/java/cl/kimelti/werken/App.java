@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 
+import cl.kimelti.werken.data.database.DBOpenHelper;
+import cl.kimelti.werken.service.EstadoService;
+
 public class App extends Application {
     private static Resources resources;
     private static Context context;

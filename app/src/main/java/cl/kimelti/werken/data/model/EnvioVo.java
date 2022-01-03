@@ -203,6 +203,8 @@ public class EnvioVo extends AbstractVo {
         sb.append("\n");
         sb.append(comuna);
         sb.append("\n");
+        sb.append(fono);
+        sb.append("\n");
         sb.append("Fecha: ");
         sb.append(fechaCreacion);
         sb.append("\n");

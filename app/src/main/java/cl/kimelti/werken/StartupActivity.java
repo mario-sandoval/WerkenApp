@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import cl.kimelti.werken.databinding.ActivityMainBinding;
 import cl.kimelti.werken.databinding.ActivityStartupBinding;
-import cl.kimelti.werken.service.web.EstadoService;
+import cl.kimelti.werken.service.EstadoService;
 import cl.kimelti.werken.ui.login.LoginActivity;
 
 public class StartupActivity extends AppCompatActivity {
@@ -24,6 +23,8 @@ public class StartupActivity extends AppCompatActivity {
 
         DataLoaderTask loaderTask = new DataLoaderTask();
         loaderTask.execute();
+        //Intent intent = new Intent(StartupActivity.this, LoginActivity.class);
+        //startActivity(intent);
     }
 
     private class DataLoaderTask extends AsyncTask<Void, Void, Boolean>{

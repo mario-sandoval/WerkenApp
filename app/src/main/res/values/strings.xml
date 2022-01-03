@@ -19,12 +19,12 @@
     <string name="preference_auth">AUTH_TEXT</string>
     <string name="preference_messenger">MESSENGER</string>
     <!-- Config -->
-    <string name="url_base">http://192.168.0.9:8080</string>
+    <string name="url_base">http://192.168.0.16:8080</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_subtitle">contacto@kimelti.cl</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -36,4 +36,12 @@
 
     <string name="search_hint">Buscar..</string>
     <string name="app_label">Werken</string>
+
+    <string name="prompt_estado">Estado</string>
+    <string name="recibido_por">Recibido por</string>
+    <string name="parentesco">Parentesco</string>
+    <string name="cancel">Cancelar</string>
+    <string name="recibe_titular">Recibe Titular</string>
+
+    <string name="aceptar">Aceptar</string>
 </resources>

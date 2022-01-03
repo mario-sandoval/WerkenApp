@@ -3,11 +3,14 @@ package cl.kimelti.werken.data;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import cl.kimelti.werken.R;
 import cl.kimelti.werken.databinding.ActivityEntregaDetailBinding;
@@ -36,4 +39,5 @@ public class EntregaDetailHostActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_entrega_detail);
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
+
 }

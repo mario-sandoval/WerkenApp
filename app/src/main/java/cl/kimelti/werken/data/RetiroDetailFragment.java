@@ -1,27 +1,32 @@
 package cl.kimelti.werken.data;
 
+import android.Manifest;
 import android.content.ClipData;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.DragEvent;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.concurrent.ExecutionException;
 
+import cl.kimelti.werken.App;
 import cl.kimelti.werken.R;
 import cl.kimelti.werken.data.model.RetiroVo;
-import cl.kimelti.werken.data.placeholder.PlaceholderContent;
 import cl.kimelti.werken.databinding.FragmentRetiroDetailBinding;
 import cl.kimelti.werken.service.RetiroService;
+import cl.kimelti.werken.ui.scanner.ScannerActivity;
 
 /**
  * A fragment representing a single Retiro detail screen.
@@ -53,6 +58,17 @@ public class RetiroDetailFragment extends Fragment {
         return true;
     };
     private FragmentRetiroDetailBinding binding;
+
+    // Register the permissions callback, which handles the user's response to the
+// system permissions dialog. Save the return value, an instance of
+// ActivityResultLauncher, as an instance variable.
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                startScanner();
+            }
+        }
+        );
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -96,8 +112,7 @@ public class RetiroDetailFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openScanner();
             }
         });
 
@@ -122,16 +137,30 @@ public class RetiroDetailFragment extends Fragment {
         }
     }
 
+    private void openScanner(){
+        if (ContextCompat.checkSelfPermission(App.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+            requestPermissionLauncher.launch(
+                    Manifest.permission.CAMERA);
+        }else{
+            startScanner();
+        }
+    }
+
+    private void startScanner(){
+        Intent intent = new Intent(App.getContext(), ScannerActivity.class);
+        startActivity(intent);
+    }
+
     private class RetirosTask extends AsyncTask<Void,Void, Boolean> {
 
-        private Integer mensajeroId;
+        private Integer retiroId;
 
-        public RetirosTask(Integer mensajeroId){
-            this.mensajeroId = mensajeroId;
+        public RetirosTask(Integer retiroId){
+            this.retiroId = retiroId;
         }
         @Override
         protected Boolean doInBackground(Void... voids) {
-            mItem = RetiroService.getInstance().getRetiroById(mensajeroId);
+            mItem = RetiroService.getInstance().getRetiroById(retiroId);
             return true;
         }
     }
